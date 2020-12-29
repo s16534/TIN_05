@@ -23,7 +23,7 @@ exports.index  = (req, res) => {
 
 };
 
-exports.new  = (req, res) => {
+exports.create  = (req, res) => {
     let newTask = new todoModel();
     newTask.name = req.body.title;
     newTask.save((error) => {
