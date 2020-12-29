@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TIN - s16534</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="box">
+                <div class="box__header">
+                    <h1>Simple ToDo App</h1>
+                    <p>LAB005</p>
+                </div>
+                <div class="box__body">
+                <div class="box__body__inputs" id="addNewTask">
+                    <form action="/" method="post">
+                        <label class="box__input__label" for="taskName">Task:</label>
+                        <input class="box__input" name="title" id="taskName" type="text" placeholder="Task name" required>
+                        <button id="btn-add" type="submit" class="btn">Add new task</button> 
+                    </form>
+                    <button type="button" class="btn btn-alert" onclick="location.href='/deleteCompletedTasks'">Delete completed tasks</button> 
+                </div>
+                </div>
+                <div class="box__table" id="box__table_id">
+                    <table id="task">
+                        <thead>
+                            <tr>
+                                <th>Created</th>
+                                <th>Task</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="task__body">
+                            <% for(var i=0; i < tasks.length; i++) { %>
+                                <tr id="<%= tasks[i]._id %>" class="<%= tasks[i].isCompleted %>">
+                                    <td id="created"><%= new Intl.DateTimeFormat('pl-PL', { 
+                                        year: 'numeric',
+                                        month: 'numeric',
+                                        day: 'numeric',
+                                        hour: 'numeric',
+                                        minute: 'numeric',
+                                        second: 'numeric'
+                                    }).format(tasks[i].created) %></td>
+                                    <td id="taskName"><%= tasks[i].name %></td>
+                                    <td class="actions">
+                                        <%if (!tasks[i].isCompleted) { %>
+                                            <form action="/<%= tasks[i]._id %>/completedTask#<%= tasks[i]._id %>" method="post">
+                                                <button class="btn btn-grey">Completed task</button>
+                                            </form>
+                                        <% } %>
+                                        <%if (tasks[i].isCompleted) { %>
+                                            <form action="/<%= tasks[i]._id %>/uncompletedTask#<%= tasks[i]._id %>" method="post">
+                                                <button class="btn btn-grey">Uncompleted task</button>
+                                            </form>
+                                        <% } %>
+                                        <form action="/<%= tasks[i]._id %>/delete" method="post">
+                                            <button type="submit" class="btn btn-grey">Delete task</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="changeTask">
+                <div class="previousTask">
+                    <!-- <a href="3c.html">
+                        <span>←</span>
+                        Previous task 
+                    </a> -->
+                </div>
+                <div class="nextTask">
+                    <!-- <a href="3e.html">
+                        Next task 
+                        <span>→</span>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>
